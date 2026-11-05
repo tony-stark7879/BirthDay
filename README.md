@@ -11,7 +11,10 @@ The visit starts with a 3D gift box that bursts open into a "Happy Birthday, Ved
 - a cake whose candles she can blow out one by one or all at once with "Make a Wish"
 - a night sky where she writes wishes and releases them as glowing lanterns
 - your letter in an envelope, typing itself out
+- "Our little moments": a wall of polaroids that flip over to tell the story behind each one
+- "Reasons I adore you": a deck of cards she turns over one reason at a time
 - the little surprises: a scratch-card fortune, a shower of hearts, a hidden star with a secret message, balloons with notes, and "Written in the stars"
+- birthday coupons she can claim, like breakfast in bed or winning one argument
 - the "Catch the hearts" game
 - a final screen with fireworks
 
@@ -26,6 +29,7 @@ vedu-birthday/
 ├── js/script.js   All interactions, plus the CONFIG block with every personal message
 ├── favicon.svg    The little 🎂 shown in the browser tab
 ├── assets/        Optional: put your own song file here
+│   └── photos/    Optional: your photos for "Our little moments"
 └── README.md      This file
 ```
 
@@ -53,12 +57,16 @@ Inside any text you can write `{name}` (Vedika), `{nick}` (Vedu), `{full}` (Vedi
 | `from`, `fromFull` | Your name in the signature and footer |
 | `openerText` | The first line she sees on the gift screen |
 | `birthday` | Her birthday as `"YYYY-MM-DD"`. Shows a live countdown, then "It's …, your day" on the day. Leave it as `""` to hide it |
+| `together` | The day you got together as `"YYYY-MM-DD"`. Shows a live "Together for … days" counter under her name. Leave it as `""` to hide it |
 | `heroSubtitle` | The line under her name at the top |
 | `candles` | Number of candles on the cake (1 to 9) |
 | `wish` | The message shown after the candles go out |
 | `lanternWishes` | The three lanterns already glowing in the sky |
 | `lanternSuggestions` | The wish ideas she can tap under the lantern box |
 | `letter` | The greeting, paragraphs, closing and signature of your letter |
+| `memories` | The polaroids in "Our little moments": a photo (or emoji), a caption, an optional date like `"14 Feb 2023"`, and the story on the back |
+| `reasons`, `reasonsEnd` | The cards in "Reasons I adore you", and the line on the last card |
+| `coupons`, `couponNote` | The birthday coupons (icon, title, text) and the line under them |
 | `fortunes` | The scratch-card fortunes |
 | `balloonNotes` | The notes inside the balloons |
 | `secret` | The message unlocked by the hidden star |
@@ -74,6 +82,14 @@ music: { src: "assets/song.mp3", volume: 0.55, playOnOpen: true },
 ```
 
 Keep the file small (a few MB) so it loads quickly on mobile data. If the file can't be played, the built-in music box plays instead.
+
+**To add your photos:** put them in `assets/photos`, then set `photo` on each memory, for example:
+
+```js
+{ photo: "assets/photos/first-date.jpg", emoji: "☕", title: "The day we met", date: "14 Feb 2023", text: "…" },
+```
+
+Square-ish photos look best, since each one is cropped to a square. Resize them to about 800 pixels wide first so the page stays fast on a phone. If a photo is missing or misspelled, the emoji shows instead. File names are case-sensitive once the site is online, so `Photo.JPG` and `photo.jpg` are different.
 
 ## Put it online for free
 
@@ -109,7 +125,7 @@ vercel --prod   # publishes to your main .vercel.app link
 ## Good to know
 
 - **Music starts only after she taps "Open Your Surprise."** On iPhone, the silent switch also mutes website sound, so the ringer needs to be on to hear it.
-- **Lantern wishes and her best game score are saved in her own browser**, so they're still there when she comes back. You won't see the wishes she writes.
+- **Lantern wishes, claimed coupons and her best game score are saved in her own browser**, so they're still there when she comes back. You won't see the wishes she writes, which is why the coupons ask her to send you a screenshot.
 - **Anyone with the link can open the site.** There's no password, so share the link privately.
 - **Both Netlify and Vercel host a small personal site like this for free.**
 
